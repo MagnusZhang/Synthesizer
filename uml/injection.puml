@@ -1,0 +1,14 @@
+@startuml
+component Module{
+    component ViewProvider
+    component ModelProvider
+    component PresenterProvider
+}
+component View
+component DaggerComponent
+PresenterProvider<--ViewProvider:1. provide view instance
+PresenterProvider<-ModelProvider:1. provide model instance
+DaggerComponent<--PresenterProvider:2. provide presenter instance
+DaggerComponent->View:3. inject presenter instance
+
+@enduml
