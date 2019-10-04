@@ -1,0 +1,2 @@
+include ':app', ':core', ':moduleinterface'
+rootProject.name='synthesizer'

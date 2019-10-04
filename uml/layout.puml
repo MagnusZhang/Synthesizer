@@ -1,0 +1,7 @@
+@startuml
+component app
+component core
+component moduleinterface
+core ->app
+moduleinterface -> core
+@enduml
