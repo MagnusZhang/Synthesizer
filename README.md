@@ -30,7 +30,7 @@ The base application class is in the **core** module. When you create a new app,
 ```
 >**Note**: it is very important as the base application class is related to many functions provided in this framework in the future.
 ### MVP and Injection
-In this framework, a typical page(or an self-confrolled view) is composed of one **component** class, one **presenter** class, one **contract** class, one **view** class,one **model** class and one **module** class.
+In this framework, a typical page(or an self-controlled view) is composed of one **component** class, one **presenter** class, one **contract** class, one **view** class,one **model** class and one **module** class.
 
 A **view** class is served as a server for displaying GUI. It could be an activity or a fragment. Or other class that used for displaying. It contains the displaying logics.And its may definded this way:
 ```kotlin
@@ -45,7 +45,7 @@ class TemplateModel(tag:String):BaseModel(tag),TemplateContract.Model
 *tag* is a indicator that is used for base url selection for network request. 
 >**Appologize**: It is not functional right now!!
 
-A **presenter** class will handle both displaying logics and data exchange logics. Plus, a **presenter** class will handle the caculating flows and working flows. Here is how it is defined:
+A **presenter** class will handle both displaying logics and data exchange logic. Plus, a **presenter** class will handle the calculating flows and working flows. Here is how it is defined:
 ```kotlin
 class TemplatePresenter(view:TemplateContract.View,model:TemplateContract.Model):
     BasePresenter<TemplateContract.View,TemplateContract.Model>(view,model)
@@ -84,7 +84,7 @@ In this case, the **view** class is *TemplateActivity*.
 
 
 This will inject a **presenter** instance into a **view** instance.
-And in the module class, we have to give out the providers for generating preseter and model. It is typically like this:
+And in the module class, we have to give out the providers for generating presenter and model. It is typically like this:
 ```kotlin
 @Module
 class TemplateModule(val activity: TemplateActivity) {
@@ -141,7 +141,7 @@ Here is a graphic demonstrate the layout of these framework and how the modules 
 
 ---
 ## Utils
-Not available noew
+Not available now
 
 ---
 
@@ -150,12 +150,34 @@ Not available now
 
 ---
 
+## Runtime Variable
+A runtime variable could used as build type, except could adapt to more development scenes.
+This is extremely convenient when you are integrating **Flutter framework** into your native project, as **Flutter framework** will restrict your build type in a specific range.
+While building this project, you may set *runtime* variable this way:
+```text
+gradlew assembleRelease -Pruntime=debug
+```
+By using this command, we can set a global gradle variable *runtime*.
+
+
+And you may use it in your code by importing the BuildConfig class:
+```kotlin
+import [your package path].BuildConfig
+...
+if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
+    [Complete your statements here]
+...
+```
+
 ## Blue Print
 + Stage 1 Basic mvp framework of android developing--**Done !**
-+ Unify the compileSdkVersion, buildToolsVersion, minSdkVersion and targetSdkVersion  for each module 
++ Unify the compileSdkVersion, buildToolsVersion, minSdkVersion and targetSdkVersion  for each module--**Done !**
++ Runtime variable for project  building.(debug, test, release)--**Done ！**
++ Deeplink navigator support--**Done ! **
 + Simplify the use of retrofit and build customizing interface for retrofit manager
 + The samples of reuse of presenters and models
 + Dynamic feature modules supports
++ IPC support for modules
 + IDE utils for template generating
 + Flutter integration
 + Flutter framework
@@ -171,3 +193,4 @@ Not available now
 
 ## Updates Logs
 + *2019-10-04* The basic functions for starting up an MVP project.
++ *2019-10-14* Unify the compileSdkVersion, buildToolsVersion, minSdkVersion and targetSdkVersion  for each module. And added a runtime variable.
