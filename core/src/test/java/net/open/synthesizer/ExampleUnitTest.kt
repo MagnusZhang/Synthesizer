@@ -1,5 +1,7 @@
 package net.open.synthesizer
 
+import net.open.synthesizer.core.os.Coroutine.Companion.future
+import net.open.synthesizer.core.os.Scope
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +14,13 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        while (true ){
+            future{
+                print("enter room!")
+            }.observe(Scope.CACULATIONSCOPE)
+            .delay(1000L) {
+                print("finished")
+            }
+        }
     }
 }

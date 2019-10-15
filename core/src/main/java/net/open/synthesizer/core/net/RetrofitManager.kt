@@ -17,4 +17,7 @@ class RetrofitManager(val tag:String,val baseUrl:String){
         retrofitBuilder.baseUrl(baseUrl)
         retrofit = retrofitBuilder.build()
     }
+    fun <T> getService(service:Class<T>):T{
+       return retrofit.create(service)
+    }
 }
