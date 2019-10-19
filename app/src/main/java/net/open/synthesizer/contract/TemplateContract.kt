@@ -1,5 +1,8 @@
 package net.open.synthesizer.contract
 
+import io.reactivex.Observable
+import net.open.synthesizer.entities.TemplateEntity
+
 class TemplateContract{
     /**
      * Open View Interface
@@ -12,5 +15,6 @@ class TemplateContract{
      */
     interface Model{
         /***Here goes your interfaces for model*/
+        fun getTemplateData(): Observable<TemplateEntity>
     }
 }

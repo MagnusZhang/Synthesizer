@@ -8,7 +8,7 @@ interface BaseView{
 
 }
 
-open class BasePresenter<V:Any,M:Any>(var view:V,var model:Any)
+open class BasePresenter<V:Any,M:Any>(var view:V,var model:M)
 
 open class BaseModel{
     var retrofitManager:RetrofitManager? = null
@@ -16,6 +16,6 @@ open class BaseModel{
     private fun getUrl(tag:String):String = "http://www.baidu.com"
     constructor(tag:String){
         this.tag = tag
-        retrofitManager = RetrofitManager(tag,getUrl(tag))
+        retrofitManager = RetrofitManager(tag)
     }
 }

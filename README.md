@@ -176,8 +176,9 @@ if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
 + Deeplink navigator support--**Done ! **
 + Simplify the use of retrofit and build customizing interface for retrofit manager
 + The samples of reuse of presenters and models
-+ Dynamic feature modules supports
 + IPC support for modules
++ Modulization (moduleinterface)
++ Dynamic feature modules supports
 + IDE utils for template generating
 + Flutter integration
 + Flutter framework
@@ -186,7 +187,6 @@ if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
 + RN framework
 + Unity integration
 + Unity utils
-+ Modulization (moduleinterface)
 + More features
 
 ---
