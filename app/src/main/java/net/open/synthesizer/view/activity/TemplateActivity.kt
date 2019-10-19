@@ -22,6 +22,7 @@ class TemplateActivity:BaseActivity<TemplatePresenter>(),TemplateContract.View{
         super.onResume()
         test.setOnClickListener {
             Toast.makeText(this@TemplateActivity,"Test",Toast.LENGTH_LONG).show()
+            presenter?.loadTemplateData()//request data
         }
     }
 }

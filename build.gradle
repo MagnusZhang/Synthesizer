@@ -62,6 +62,6 @@ ext{
     buildToolsVersion = "29.0.2" // version for build-tools
     minSdkVersion = 19 // version of min sdk, which covers 95% of devices
     targetSdkVersion = 29 // version of target sdk
-    versionCode = 2 // version code
-    versionName = "0.2.0" // version name
+    versionCode = 3 // version code
+    versionName = "0.3.0" // version name
 }

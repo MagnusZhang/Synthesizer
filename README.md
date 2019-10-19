@@ -29,6 +29,31 @@ The base application class is in the **core** module. When you create a new app,
 </application>
 ```
 >**Note**: it is very important as the base application class is related to many functions provided in this framework in the future.
+### 3. Modules Initializing
+As initializing is implement in BaseApplication which belongs to core module.
+In modualization, you may not be able to initialize module in your module package, and definitely not encouraged to modify core module as future updating might be required.
+To solve this issue, you may create an *ApplicationHook* class in your *app* module:
+```kotlin
+package net.open.synthesizer.core.base
+
+/**
+ * Application Hook should only define this way. And you do not change the package name as it will
+ * be referred by reflection in BaseApplication.
+ * You may complete you initial logic in "initComponents" method
+ */
+class ApplicationHook{
+    /**
+     * The init logic
+     */
+    fun initComponents(){
+        // Add your code here
+    }
+}
+```
+This is the template to create an ApplicationHook class. The *initComponents* method is required. It will be called when application is launched. You may fill you codes in. 
+>*Note*: The path of ApplicationHook is fixed as *net.open.synthesizer.core.base*, do not change it.
+
+
 ### MVP and Injection
 In this framework, a typical page(or an self-controlled view) is composed of one **component** class, one **presenter** class, one **contract** class, one **view** class,one **model** class and one **module** class.
 
@@ -145,8 +170,47 @@ Not available now
 
 ---
 
-## Retrofit Manager(Network)
-Not available now
+## RetrofitManager(Network)
+### Define Service
+In this framework, http and https request is supported.
+You may define a request interface by using retrofit style in a service class file like this:
+```kotlin
+const val TEMPLATE_REQUESTPATH = "api/template"
+
+interface TemplateService{
+    @Headers(DEFAULTHEAD)
+    @POST(TEMPLATE_REQUESTPATH)
+    fun templateRequest(@Body body: RequestBody):Observable<TemplateEntity>
+}
+```
+In this example, we declared an interface with headers defined by *DEFAULTHEAD* and a post request path defined by *TEMPLATE_REQUESTPATH*. It will receive a response of the type of *TemplateEntity*. This is the template used by retrofit for generating request codes.
+>**Note**: We strongly recommand you to put your service class files under ***networkservices*** package.
+
+### Executing Request
+Each model instance contains a RetrofitManager instance. And we may execute request simply by calling the **getService** method of a RetrofitManager instance. Here is an example of execute a request in a model instance.
+```kotlin
+class TemplateModel(tag:String):BaseModel(tag),TemplateContract.Model{
+    fun getTemplateData(): Observable<TemplateEntity> {
+        var mediaType: MediaType? = "text/application".toMediaTypeOrNull()
+        var requestBody:RequestBody = "{}".toRequestBody(mediaType)
+        return retrofitManager!!.getService(TemplateService::class.java).templateRequest(requestBody)
+    }
+}
+```
+To experience using network requesting tool, you may need a API server which is under <a href="\\testserver\">***testserver***</a>. It requires Nodejs support. <a href="\\testserver\README.md">[See More]</a>
+
+### Configuration
+For different models, developers may need to set configuration respectively. So, when using this framework, you might customize model request configuration by using *BaseNetConfigureAdapter*.
+First, you would have to implement your own *BaseNetConfigureAdapter* in your *ApplicationHook#initComponents*:
+```kotlin
+BaseNetConfigureAdapter.setNetConfigureAdapter(object :BaseNetConfigureAdapter{
+    override fun getNetConfigure(tag: String): BaseNetConfigure {
+        return BaseNetConfigure("http://localhost:8080/")
+    }
+})
+```
+*BaseNetConfigureAdapter#getNetConfigure* provides a request configuration
+*BaseNetConfigure*'s constructor has two arguments. The first one is the base URL. And the second one is an optional arguments. It provides an processor function manipulate the request data and configuration before it is sent. For more information, you may read the definition codes or Template classes.
 
 ---
 
@@ -174,10 +238,12 @@ if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
 + Unify the compileSdkVersion, buildToolsVersion, minSdkVersion and targetSdkVersion  for each module--**Done !**
 + Runtime variable for project  building.(debug, test, release)--**Done ！**
 + Deeplink navigator support--**Done ! **
-+ Simplify the use of retrofit and build customizing interface for retrofit manager
++ Simplify the use of retrofit and build customizing interface for retrofit manager--**Done !**
++ APIs documents
 + The samples of reuse of presenters and models
-+ Dynamic feature modules supports
 + IPC support for modules
++ Modulization (moduleinterface)
++ Dynamic feature modules supports
 + IDE utils for template generating
 + Flutter integration
 + Flutter framework
@@ -186,7 +252,6 @@ if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
 + RN framework
 + Unity integration
 + Unity utils
-+ Modulization (moduleinterface)
 + More features
 
 ---
@@ -194,3 +259,4 @@ if(BuildConfig.ProjectRuntime=="debug")//When runtime is "debug"
 ## Updates Logs
 + *2019-10-04* The basic functions for starting up an MVP project.
 + *2019-10-14* Unify the compileSdkVersion, buildToolsVersion, minSdkVersion and targetSdkVersion  for each module. And added a runtime variable.
++ *2019-10-19* Add tools for network request.

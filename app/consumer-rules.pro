@@ -1,0 +1,1 @@
+#Here you may add your own proguard rules

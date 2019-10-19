@@ -40,10 +40,13 @@ dependencies {
     api project(":moduleinterface")
     api "androidx.multidex:multidex:$rootProject.ext.multidexVerion"
     //These references are used for internet connection
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.retrofit2:retrofit-adapters:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.retrofit2:retrofit-converters:$rootProject.ext.retrofitVersion"
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    api "com.squareup.retrofit2:retrofit-adapters:$rootProject.ext.retrofitVersion"
+    api "com.squareup.retrofit2:retrofit-converters:$rootProject.ext.retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
+    api "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"
     api "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.coroutineVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.coroutineVersion"
