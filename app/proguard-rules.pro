@@ -67,3 +67,7 @@
 
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 #END OF RETROFIT
+# ApplicationHook and its methods will be used by BaseApplication. So keeping it is required.
+-keepclasseswithmembers net.open.synthesizer.core.base.ApplicationHook{ *; }
+#Extra proguard rules
+-include consumer-rules.pro

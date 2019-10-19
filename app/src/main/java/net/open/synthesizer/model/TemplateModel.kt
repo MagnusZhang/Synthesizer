@@ -12,7 +12,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 
 class TemplateModel(tag:String):BaseModel(tag),TemplateContract.Model{
-    fun getTemplateData(): Observable<TemplateEntity> {
+    override fun getTemplateData(): Observable<TemplateEntity> {
         var mediaType: MediaType? = "text/application".toMediaTypeOrNull()
         var requestBody:RequestBody = "{}".toRequestBody(mediaType)
         return retrofitManager!!.getService(TemplateService::class.java).templateRequest(requestBody)
